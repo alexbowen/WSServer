@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Server manager</title>
+        <script type="text/javascript" src="../lib/require/require.js"></script>
+    </head>
+    <body>
+        <button id="flush-clients">flush clients</button>
+        <button id="flush-requests">flush requests</button>
+        <h2>Clients</h2>
+        <table id="client-list" border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Number</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <h2>Requests</h2>
+        <table id="request-list" border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>RID</th>
+                    <th>Sender UUID</th>
+                    <th>History</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <script type="text/javascript">
+
+        //set environment
+        var ENV = 'dev';
+
+        requirejs.config({
+            //By default load any module IDs from lib
+            baseUrl: (ENV === 'dev' ? 'static' : 'static-versioned') + '/js',
+            paths: {
+                'lib': '../../lib/application',
+                'jquery': '/lib/jquery'
+            }
+        });
+
+        require([
+            'lib/domReady',
+            'bootstrap'
+        ], function (domReady) {
+            domReady(function () {
+                require([
+                    'models/client/manage',
+                    '../../socket.io/socket.io'
+                ], function (Manager) {
+
+                    log('application ready');
+
+                    var manager = new Manager();
+
+                    manager.connect();
+                });
+            });
+        });
+        </script>
+    </body>
+</html>
