@@ -45,8 +45,7 @@
 
                 var clientHtml = '<tr id="id-' + client.id + '">' +
                         '<td>' + client.id + '</td>' +
-                        '<td>' + client.type + '</td>' +
-                        '<td><input class="name" type="text" value="' + client.name + '" /></td>' +
+                        '<td><input class="name" type="text" value="' + client.auth.displayName + '" /></td>' +
                         '<td><input class="floor" type="text" value="' + client.floor + '" /></td>' +
                         '<td><input class="location" type="text" value="' + client.location + '" /></td>' + 
                     '</tr>';

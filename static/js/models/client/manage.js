@@ -32,35 +32,38 @@
                 this._super();
 
                 this.view.addFlushClientsButton(function () {
-                    client.socket.emit('flush-clients');
+                    console.log('flush clients');
+                    client.connection.emit('flush-clients');
                 });
 
                 this.view.addFlushRequestsButton(function () {
-                    client.socket.emit('flush-requests');
+                    console.log('flush requests');
+                    client.connection.emit('flush-requests');
                 });
 
-                client.socket.on('refresh-requests', function (requestStore) {
+                client.connection.on('refresh-requests', function (requestStore) {
                     console.log('refresh-requests', requestStore);
                 });
 
-                client.socket.on('refresh-clients', function (clientData) {
+                client.connection.on('refresh-clients', function (clientData) {
                     client.view.refreshClient(clientData);
                     console.log('refresh-client', clientData);
                 });
 
-                client.socket.on('server-notification', function(notification) {
+                client.connection.on('server-notification', function(notification) {
                     if (notification.type === 'online') {
+                        console.log(notification.user);
                         client.view.addClient(notification.user);
                     } else if (notification.type === 'offline') {
                         client.view.removeClient(notification.user);
                     }
                 });
 
-                client.socket.on('disconnect', function() {
+                client.connection.on('disconnect', function() {
                     client.view.removeClient(client.info);
                 });
 
-                client.socket.on('server-request', function(requestData) {
+                client.connection.on('server-request', function(requestData) {
 
                     var request = new Request(requestData);
 
