@@ -20,7 +20,7 @@ server.listen(5000, '0.0.0.0');
 io.configure(function () { 
     io.set("transports", ["websocket","xhr-polling"]); 
     io.set("polling duration", 10); 
-    io.set("log level", 1);
+    //io.set("log level", 1);
 });
 
 // dispatch http requests:
