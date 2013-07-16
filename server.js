@@ -92,13 +92,13 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('connect', function(data, callback) {
         socket.set('id', data.id, function () {
-            console.log('connect');
+            console.log('connect', requestStore.registry);
             if (clientStore.update(data.id, data)) {
                 console.log('client in registry');
                 if (callback) callback(clientStore.find(data.id));
             };
 
-            io.sockets.emit('server-notification' , {'user' : data.info, 'type' : 'online', 'id' : data.id});
+            io.sockets.emit('server-notification' , {'user' : data, 'type' : 'online', 'id' : data.id});
             io.sockets.emit('server-sync', {requests : requestStore.registry})
         });
     });
@@ -118,12 +118,7 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('refresh-clients', clientStore.registry[data.id]);
     });
 
-
-
-
-
-
-
+    //events for client web app tool
     socket.on('flush-requests', function () {
         requestStore.flush('timestamp', 6000);
 

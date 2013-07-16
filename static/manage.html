@@ -12,7 +12,6 @@
             <thead>
                 <tr>
                     <th>UUID</th>
-                    <th>Type</th>
                     <th>Name</th>
                     <th>Location</th>
                     <th>Number</th>
@@ -43,7 +42,7 @@
             baseUrl: (ENV === 'dev' ? 'static' : 'static-versioned') + '/js',
             paths: {
                 'lib': '../../lib/application',
-                'jquery': '/lib/jquery'
+                'jquery': '/lib/application/jquery'
             }
         });
 
