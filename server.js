@@ -86,6 +86,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('client-pair-response', function (client, fn) {
+        //TODO if this client is the next in registry (queue)
         io.sockets.emit('clients-pair-response', {'client' : client});
         console.log('clients-pair-response');
     });
